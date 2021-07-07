@@ -9,6 +9,9 @@ from .models import ExchangeRate
 import json
 from django.http import HttpResponse
 from background_task import background
+from django.core import serializers
+from django.conf import settings as conf_settings
+
 
 class index(APIView):
     def get(self, request):
@@ -40,7 +43,7 @@ def schedule():
    getExchangeRate('BTC','USD')
 
 def getExchangeRate(fromCurrency,toCurrency):
-        apikey="IRJURSGN93HM5ZOR"
+        apikey = conf_settings.ALPHAVANTAGE_KEY    
         url = ("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency="+
         fromCurrency+"&to_currency="+toCurrency+"&apikey="+apikey)
 
